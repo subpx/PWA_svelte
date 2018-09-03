@@ -1,0 +1,41 @@
+<h2>Home</h2>
+
+<nav>
+  <ul>
+    <li><a href="./home1">Home 1</a></li>
+    <li><a href="./home2">Home 2</a></li>
+  </ul>
+</nav>
+
+<svelte:component this="{ route }"></svelte:component>
+
+{ route }
+
+<script>
+  import router from '../router';
+
+  export default {
+    data() {
+      return {
+        route: null
+      }
+    },
+
+    oncreate() {
+      router.on('/./home1', () => {
+        import('./HomeChild.html').then((m) => {
+          this.set({
+            route: m.default
+          });
+        })
+      })
+      .on('/./home2', () => {
+        import('./HomeChild2.html').then((m) => {
+          this.set({
+            route: m.default
+          });
+        })
+      });
+    }
+  };
+</script>

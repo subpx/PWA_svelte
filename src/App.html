@@ -1,0 +1,40 @@
+<Nav></Nav>
+<svelte:component this="{ route }"></svelte:component>
+
+
+<script>
+  import router, { set } from './router';
+  import Nav from './components/Nav.html';
+
+  export default {
+    data() {
+      return {
+        route: null
+      }
+    },
+
+    components: {
+      Nav
+    },
+
+    oncreate() {
+      console.log(router);
+
+      router
+        .on('/', () => {
+          import('./components/Home.html').then((m) => {
+            this.set({
+              route: m.default
+            });
+          })
+        })
+        .on('/about', () => {
+          import('./components/About.html').then((m) => {
+            this.set({
+              route: m.default
+            });
+          })
+        })
+    }
+  };
+</script>
